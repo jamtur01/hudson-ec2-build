@@ -1,0 +1,33 @@
+#!/bin/bash
+
+pkg install -q SUNWruby18
+pkg install -q SUNWgit
+#pkg install -q SUNWsqlite3
+#pkgadd -nd http://www.opencsw.org/pkg_get.pkg all
+
+# Install Gems
+
+gem install --no-ri --no-rdoc rspec --version 1.2.2
+gem install --no-ri --no-rdoc rake --version 0.8.3
+gem install --no-ri --no-rdoc ci_reporter mocha hoe rails cucumber
+gem install --no-ri --no-rdoc relevance-rcov --source http://gems.github.com
+#gem install --no-ri --no-rdoc sqlite3-ruby
+gem install --no-ri --no-rdoc json stomp
+gem install --no-ri --no-rdoc facter
+
+ln -s /var/ruby/1.8/gem_home/bin/* /usr/bin
+
+# Configure Hudson
+
+useradd hudson
+usermod -G mail hudson
+
+mkdir /hudson
+mkdir /hudson/.puppet
+cd /hudson
+
+git config --global user.email "hudson@reductivelabs.com"
+git config --global user.name "Hudson User"
+
+echo "Slave Build completed"
+

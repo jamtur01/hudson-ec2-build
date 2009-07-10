@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# java apps (sun SDK)
+rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm
+yum install -y java-1.6.0-openjdk
+yum install -y ruby ruby-devel rubygems ruby-shadow ruby-ldap
+yum install -y rrdtool ruby-RRDtool
+yum upgrade -y curl
+yum install -y git
+yum install -y postgresql postgresql-server postgresql-devel
+yum install -y sqlite sqlite-devel
+yum install -y mysql mysql-devel mysql-server
+
+# install Gems
+
+gem install --no-ri --no-rdoc rspec --version 1.2.2
+gem install --no-ri --no-rdoc rake --version 0.8.3
+gem install --no-ri --no-rdoc ci_reporter mocha hoe rails cucumber sqlite3-ruby postgres
+gem install --no-ri --no-rdoc relevance-rcov --source http://gems.github.com
+gem install --no-ri --no-rdoc mysql -- --with-mysql-config=/usr/bin/mysql_config
+gem install --no-ri --no-rdoc json stomp
+gem install --no-ri --no-rdoc facter
+
+# Configure Hudson
+
+useradd hudson
+usermod -a -G mail hudson
+
+mkdir /home/hudson/.puppet
+cd /home/hudson
+
+git config --global user.email "hudson@reductivelabs.com"
+git config --global user.name "Hudson User"
+
+echo "Slave Build completed"
+

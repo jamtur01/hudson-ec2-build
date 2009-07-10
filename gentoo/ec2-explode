@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# java apps (sun SDK)
+emerge virtual/jdk
+java -version 
+
+# # For doing builds:
+emerge dev-lang/ruby
+emerge dev-ruby/rubygems
+emerge dev-util/git 
+emerge dev-ruby/ruby-ldap
+emerge net-analyzer/rrdtool dev-ruby/ruby-rrd
+
+# Install Gems
+
+#gem install --no-ri --no-rdoc rubygems-update 
+#/var/lib/gems/1.8/bin/update_rubygems --no-ri --no-rdoc
+
+gem install --no-ri --no-rdoc rspec --version 1.1.11
+gem install --no-ri --no-rdoc rake --version 0.8.3
+gem install --no-ri --no-rdoc ci_reporter mocha hoe rails cucumber rake
+gem install --no-ri --no-rdoc facter
+
+# Configure Hudson
+
+useradd hudson
+usermod -a -G mail hudson
+
+mkdir /home/hudson
+mkdir /home/hudson/.puppet
+cd /home/hudson
+
+git config --global user.email "hudson@reductivelabs.com"
+git config --global user.name "Hudson User"
+
+echo "Slave Build completed"
+
