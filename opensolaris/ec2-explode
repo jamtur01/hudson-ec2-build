@@ -10,7 +10,7 @@ pkg install -q SUNWgcc
 
 gem install --no-ri --no-rdoc rspec --version 1.2.2
 gem install --no-ri --no-rdoc rake --version 0.8.3
-gem install --no-ri --no-rdoc ci_reporter mocha hoe rails cucumber
+gem install --no-ri --no-rdoc ci_reporter mocha hoe rails mongrel cucumber
 gem install --no-ri --no-rdoc relevance-rcov --source http://gems.github.com
 #gem install --no-ri --no-rdoc sqlite3-ruby
 gem install --no-ri --no-rdoc json stomp
