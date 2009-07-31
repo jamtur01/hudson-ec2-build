@@ -25,16 +25,27 @@ apt-get install -y --force-yes rake
 apt-get install -y --force-yes git-core
 apt-get install -y --force-yes ruby-dev
 apt-get install -y --force-yes libldap-ruby
+apt-get install -y --force-yes librrd-ruby
+apt-get install -y --force-yes librrd2-dev
 apt-get install -y --force-yes rrdtool
 apt-get install -y --force-yes mysql-server
 apt-get install -y --force-yes libmysql-ruby
 apt-get install -y --force-yes sqlite3
 apt-get install -y --force-yes libsqlite3-ruby
+apt-get install -y --force-yes libtest-unit-ruby
+apt-get install -y --force-yes mongrel libdaemons-ruby1.8
 
 # Install Gems
 
-gem install --no-ri --no-rdoc rubygems-update 
-/var/lib/gems/1.8/bin/update_rubygems --no-ri --no-rdoc
+#gem install --no-ri --no-rdoc rubygems-update 
+#/var/lib/gems/1.8/bin/update_rubygems --no-ri --no-rdoc
+
+wget http://rubyforge.org/frs/download.php/60718/rubygems-1.3.5.tgz
+tar -zxf rubygems-1.3.5.tgz
+cd rubygems-1.3.5
+ruby setup.rb
+gem -v
+cd /tmp
 
 gem install --no-ri --no-rdoc rspec --version 1.2.2
 #gem install --no-ri --no-rdoc rake --version 0.8.3
