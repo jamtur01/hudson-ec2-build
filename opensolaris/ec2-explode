@@ -2,6 +2,7 @@
 
 pkg install -q SUNWruby18
 pkg install -q SUNWgit
+pkg install -q SUNWgcc
 #pkg install -q SUNWsqlite3
 #pkgadd -nd http://www.opencsw.org/pkg_get.pkg all
 
