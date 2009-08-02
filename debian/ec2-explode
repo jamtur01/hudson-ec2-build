@@ -2,23 +2,13 @@
 
 apt-get update
 
-#echo sun-java6-bin shared/accepted-sun-dlj-v1-1 select true | /usr/bin/debconf-set-selections
-#echo sun-java6-jdk shared/accepted-sun-dlj-v1-1 select true | /usr/bin/debconf-set-selections
-#echo sun-java6-jre shared/accepted-sun-dlj-v1-1 select true | /usr/bin/debconf-set-selections
-
 export DEBIAN_FRONTEND=noninteractive
 dpkg-reconfigure --frontend=noninteractive --priority=critical debconf
 
 echo "libc6 glibc/restart-services string rsync cron" | /usr/bin/debconf-set-selections
 echo "libc6 glibc/upgrade select true" | /usr/bin/debconf-set-selections
-#echo "mysql-server mysql-server/root_password select" | /usr/bin/debconf-set-selections
-#echo "mysql-server-5.0 mysql-server/root_password password password" | /usr/bin/debconf-set-selections
-
-# java apps (sun SDK)
-#apt-get install -y sun-java6-bin 
 
 # # For doing builds:
-#apt-get install -y sun-java6-jdk 
 apt-get install -y --force-yes ruby
 apt-get install -y --force-yes rubygems
 apt-get install -y --force-yes rake
@@ -35,11 +25,6 @@ apt-get install -y --force-yes libsqlite3-ruby
 apt-get install -y --force-yes libtest-unit-ruby
 apt-get install -y --force-yes mongrel libdaemons-ruby1.8
 
-# Install Gems
-
-#gem install --no-ri --no-rdoc rubygems-update 
-#/var/lib/gems/1.8/bin/update_rubygems --no-ri --no-rdoc
-
 wget http://rubyforge.org/frs/download.php/60718/rubygems-1.3.5.tgz
 tar -zxf rubygems-1.3.5.tgz
 cd rubygems-1.3.5
@@ -48,7 +33,6 @@ gem -v
 cd /tmp
 
 gem install --no-ri --no-rdoc rspec --version 1.2.2
-#gem install --no-ri --no-rdoc rake --version 0.8.3
 gem install --no-ri --no-rdoc ci_reporter mocha hoe rails cucumber rake
 gem install --no-ri --no-rdoc relevance-rcov --source http://gems.github.com
 gem install --no-ri --no-rdoc json stomp
@@ -58,6 +42,8 @@ gem install --no-ri --no-rdoc facter
 
 useradd hudson
 usermod -a -G mail hudson
+useradd puppet
+usermod -a -G mail puppet
 
 mkdir /home/hudson
 mkdir /home/hudson/.puppet

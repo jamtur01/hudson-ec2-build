@@ -3,7 +3,6 @@
 # java apps (sun SDK)
 rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm
 yum install -y gcc make automake
-yum install -y java-1.6.0-openjdk
 yum install -y ruby ruby-devel rubygems ruby-shadow ruby-ldap rubygem-mongrel
 yum install -y rrdtool ruby-RRDtool
 yum upgrade -y curl
@@ -26,6 +25,8 @@ gem install --no-ri --no-rdoc facter
 
 useradd hudson
 usermod -a -G mail hudson
+useradd puppet
+usermod -a -G mail puppet
 
 mkdir /home/hudson/.puppet
 cd /home/hudson

@@ -25,7 +25,10 @@ gem install --no-ri --no-rdoc facter
 # Configure Hudson
 
 useradd hudson
+useradd puppet
+usermod -a -G mail puppet
 usermod -a -G mail hudson
+
 
 mkdir /home/hudson/.puppet
 cd /home/hudson

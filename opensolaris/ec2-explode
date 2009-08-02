@@ -3,8 +3,6 @@
 pkg install -q SUNWruby18
 pkg install -q SUNWgit
 pkg install -q SUNWgcc
-#pkg install -q SUNWsqlite3
-#pkgadd -nd http://www.opencsw.org/pkg_get.pkg all
 
 # Install Gems
 
@@ -12,7 +10,6 @@ gem install --no-ri --no-rdoc rspec --version 1.2.2
 gem install --no-ri --no-rdoc rake --version 0.8.3
 gem install --no-ri --no-rdoc ci_reporter mocha hoe rails mongrel cucumber
 gem install --no-ri --no-rdoc relevance-rcov --source http://gems.github.com
-#gem install --no-ri --no-rdoc sqlite3-ruby
 gem install --no-ri --no-rdoc json stomp
 gem install --no-ri --no-rdoc facter
 
@@ -22,6 +19,8 @@ ln -s /var/ruby/1.8/gem_home/bin/* /usr/bin
 
 useradd hudson
 usermod -G mail hudson
+useradd puppet
+usermod -G mail puppet
 
 mkdir /hudson
 mkdir /hudson/.puppet
