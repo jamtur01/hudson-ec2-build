@@ -1,0 +1,11 @@
+= TODO
+
+* Do we need to install rubygems manually to get the very lattest version?
+
+        wget http://rubyforge.org/frs/download.php/60718/rubygems-1.3.5.tgz
+        tar -zxf rubygems-1.3.5.tgz
+        cd rubygems-1.3.5
+        ruby setup.rb
+        gem -v
+        cd /tmp
+
