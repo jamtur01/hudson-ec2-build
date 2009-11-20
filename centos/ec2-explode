@@ -5,6 +5,7 @@ rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noar
 yum install -y java-1.6.0-openjdk
 yum install -y gcc make automake
 yum install -y ruby ruby-devel rubygems ruby-shadow ruby-ldap rubygem-mongrel
+yum install -y augeas ruby-augeas
 yum install -y rrdtool ruby-RRDtool
 yum upgrade -y curl
 yum install -y git

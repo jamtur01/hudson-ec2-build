@@ -10,7 +10,7 @@ apt-get install -y rubygems
 apt-get install -y rake
 apt-get install -y git-core
 apt-get install -y ruby-dev
-apt-get install -y libldap-ruby
+apt-get install -y libldap-ruby1.8
 apt-get install -y librrd-ruby
 apt-get install -y librrd2-dev
 apt-get install -y rrdtool
