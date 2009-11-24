@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# Become root if necessary
-sudo -s
-
 # Work in /mnt
 cd /mnt
 
@@ -30,9 +27,9 @@ export PATH=/mnt/puppet/bin:/mnt/puppet/sbin:/mnt/facter/bin:$PATH
 export RUBYLIB=/mnt/facter/lib:/mnt/puppet/lib
 
 # FIXME - Need some OS dependant stuff here
+export DEBIAN_FRONTEND=noninteractive
 apt-get update
-apt-get install ruby libopenssl-ruby rdoc rubygems
+apt-get install -y ruby libopenssl-ruby rdoc rubygems
 
+puppet /mnt/hudson-ec2-build/config/manifest.pp
 
-cd /mnt/hudson
-puppet confi/manifest.pp

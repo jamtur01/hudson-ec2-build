@@ -9,3 +9,7 @@
         gem -v
         cd /tmp
 
+* Is this still needed for debian?
+
+        echo "libc6 glibc/restart-services string rsync cron" | /usr/bin/debconf-set-selections
+        echo "libc6 glibc/upgrade select true" | /usr/bin/debconf-set-selections

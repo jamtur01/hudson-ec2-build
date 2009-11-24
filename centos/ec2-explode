@@ -14,28 +14,6 @@ yum install -y sqlite sqlite-devel
 yum install -y mysql mysql-devel mysql-server
 
 # install Gems
-
-gem install --no-ri --no-rdoc rspec --version 1.2.2
-gem install --no-ri --no-rdoc rake --version 0.8.3
-gem install --no-ri --no-rdoc ci_reporter mocha hoe rails cucumber sqlite3-ruby postgres
-gem install --no-ri --no-rdoc relevance-rcov --source http://gems.github.com
-gem install --no-ri --no-rdoc json stomp
 gem install --no-ri --no-rdoc mysql -- --with-mysql-config=/usr/bin/mysql_config
-gem install --no-ri --no-rdoc facter
 
-# Configure Hudson
-
-useradd hudson
-useradd puppet
-usermod -a -G mail puppet
-usermod -a -G mail hudson
-
-
-mkdir /home/hudson/.puppet
-cd /home/hudson
-
-git config --global user.email "hudson@reductivelabs.com"
-git config --global user.name "Hudson User"
-
-echo "Slave Build completed"
 
