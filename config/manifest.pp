@@ -1,5 +1,26 @@
 node default {
 
+  package {
+    [
+      # Java for hudson
+      "openjdk-6-jre-headless",
+
+      # Stuff to buil gems
+      "ruby-dev",
+      "libmysqlclient-dev",
+      "libpq-dev",
+      "librrd-dev",
+      "libsqlite3-dev",
+
+      # For reports
+      "rrdtool",
+
+      "mysql-server",
+      "sqlite3",
+    ]:
+      ensure => present,
+  }
+
   include ruby
   include rubygems
   include git
@@ -7,27 +28,7 @@ node default {
 
   include hudson
 
-  package {
-    [
-      "openjdk-6-jre-headless",
 
-      "ruby-dev",
-      "libmysqlclient-dev",
-      "libpq-dev",
-      "librrd-dev",
-      "libsqlite3-dev",
-
-      "libldap-ruby1.8",
-      "librrd-ruby",
-      "rrdtool",
-      "mysql-server",
-      "sqlite3",
-      "libtest-unit-ruby",
-      "mongrel",
-      "libdaemons-ruby1.8",
-    ]:
-      ensure => present,
-  }
 }
 
 class ruby {
@@ -48,7 +49,11 @@ class rubygems {
     "rspec":
       provider => "gem",
       ensure   => "1.2.2",
-      require  => Package["rubygems"],
+      require  => [
+        Package["rake"],
+        Package["rubygems"],
+        Package["ruby-dev"],
+      ],
       options  => "--no-ri --no-rdoc",
   }
 
@@ -57,7 +62,11 @@ class rubygems {
     "relevance-rcov":
       provider => "gem",
       source   => "http://gems.github.com",
-      require  => Package["rubygems"],
+      require  => [
+        Package["rake"],
+        Package["rubygems"],
+        Package["ruby-dev"],
+      ],
       options  => "--no-ri --no-rdoc",
   }
 
@@ -65,8 +74,10 @@ class rubygems {
     "mysql":
       provider => "gem",
       require  => [
-        Package["rubygems"],
         Package["libmysqlclient-dev"],
+        Package["rake"],
+        Package["rubygems"],
+        Package["ruby-dev"],
       ],
       options   => "--no-ri --no-rdoc",
   }
@@ -75,8 +86,10 @@ class rubygems {
     "postgres":
       provider => "gem",
       require  => [
-        Package["rubygems"],
         Package["libpq-dev"],
+        Package["rake"],
+        Package["rubygems"],
+        Package["ruby-dev"],
       ],
       options   => "--no-ri --no-rdoc",
   }
@@ -85,11 +98,14 @@ class rubygems {
     "sqlite3-ruby":
       provider => "gem",
       require  => [
-        Package["rubygems"],
         Package["libsqlite3-dev"],
+        Package["rake"],
+        Package["rubygems"],
+        Package["ruby-dev"],
       ],
       options   => "--no-ri --no-rdoc",
   }
+
   package {
     [
       "rake",
@@ -100,10 +116,14 @@ class rubygems {
       "cucumber",
       "json",
       "stomp",
+      "mongrel",
+      "daemons",
+      "ldap",
+      "rrd",
+      "test-unit",
     ]:
       provider => "gem",
       ensure   => present,
-      require  => Package["rubygems"],
       options   => "--no-ri --no-rdoc",
   }
 }
