@@ -11,8 +11,9 @@ node default {
 
 
    $default_packages = $operatingsystem ? {
-        Fedora =>           [ "java-1.7.0-icedtea" ],
-        /Ubuntu|Debian/  => [ "openjdk-6-jre-headless" ],
+        Fedora => [ "java-1.6.0-openjdk" ],
+        Ubuntu => [ "openjdk-6-jre-headless" ],
+        Debian => [ "openjdk-6-jre-headless" ],
    }
 
   package {
@@ -36,28 +37,12 @@ node default {
       ensure => present,
   }
 
-  include ruby
   include rubygems
   include git
   include users
 
   include hudson
 
-
-}
-
-class ruby {
-
-   $ruby_packages = $operatingsystem ? {
-        Fedora =>           [ "ruby-devel" ],
-        /Ubuntu|Debian/  => [ "ruby-dev" ],
-   }
-
-  package {
-    $ruby_packages:
-      ensure => present,
-      before => Package["rake"]
-  }
 
 }
 
@@ -89,21 +74,13 @@ class rubygems {
   package {
     "ruby_dev":
       name => $operatingsystem ? {
-         Fedora =>           [ "postgresql-devel", "mysql-devel",        "sqlite",  "sqlite-devel",   "rrdtool-devel", "openldap-devel" ],
-         /Ubuntu|Debian/  => [ "libpq-dev",        "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap-dev" ],
+         Fedora => [ "ruby-devel", "postgresql-devel", "mysql-devel",        "sqlite",  "sqlite-devel",   "rrdtool-devel", "openldap-devel" ],
+         Ubuntu => [ "ruby-dev",   "libpq-dev",        "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap-dev" ],
+         Debian => [ "ruby-dev",   "libpq-dev",        "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap-dev" ],
       },
       ensure => present,
-#      require => Package["ruby_dev2"],
+      require => Package["rake"],
   }
-
-#  package {
-#    "ruby_dev2":
-#      name => $operatingsystem ? {
-#         Fedora =>           [ "libpng-devel", "freetype-devel",   "libart_lgpl-devel" ],
-#         /Ubuntu|Debian/  => [ "libpng-dev",   "libfreetype6-dev", "libart-2.0-dev" ],
-#      },
-#      ensure => present,
-#  }
 
 
   package {
@@ -115,10 +92,7 @@ class rubygems {
       "ruby-ldap",
     ]:
       provider => "gem",
-      require  => [
-        Package["ruby_dev"],
-        Package["rake"],
-      ],
+      require  => Package["ruby_dev"],
       options   => "--no-ri --no-rdoc",
   }
 
@@ -182,8 +156,9 @@ class users {
 class git {
 
   $git_package = $operatingsystem ? {
-       Fedora =>           [ "git" ],
-       /Ubuntu|Debian/  => [ "git-core" ],
+       Fedora => [ "git" ],
+       Ubuntu => [ "git-core" ],
+       Debian => [ "git-core" ],
   }
 
   package {

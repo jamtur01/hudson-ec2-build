@@ -40,15 +40,15 @@ option[:server] = URI.parse(EC2_URL).host if ENV['EC2_URL']
 
 ec2 = AWS::EC2::Base.new options
 
-script_file = File.join ROOT, 'config', 'setup_script.sh'
-if File.exists? script_file
-  user_data = IO.readlines(script_file).join
+#script_file = File.join ROOT, 'config', 'setup_script.sh'
+#if File.exists? script_file
+#  user_data = IO.readlines(script_file).join
 
 #  # Apply user data macros
 #  details[:user_data_replace].each_pair do |regex, var|
 #    user_data.gsub!(/#{regex}/, replace_data[var.to_sym])
 #  end
-end
+#end
 
 
 
@@ -64,8 +64,8 @@ options = {
 
   :key_name => 'puppet',
   :group_id => 'default',
-  :user_data => user_data,
-  :base64_encoded => true,
+#  :user_data => user_data,
+#  :base64_encoded => true,
 }
 result = ec2.run_instances(options)
 puts result.inspect
