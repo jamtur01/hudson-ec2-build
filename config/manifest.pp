@@ -1,22 +1,37 @@
 node default {
 
+  # java apps (sun SDK)
+  if ($operatingsystem == "Fedora") {
+    exec {
+      "epel":
+        command => "/bin/rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm",
+        unless  => "/bin/rpm -qa | /bin/grep epel-release-5-3",
+    }
+  }
+
+
+   $default_packages = $operatingsystem ? {
+        Fedora =>           [ "java-1.7.0-icedtea" ],
+        /Ubuntu|Debian/  => [ "openjdk-6-jre-headless" ],
+   }
+
+  package {
+    $default_packages:
+      ensure => installed,
+  }
+
   package {
     [
-      # Java for hudson
-      "openjdk-6-jre-headless",
-
-      # Stuff to buil gems
-      "ruby-dev",
-      "libmysqlclient-dev",
-      "libpq-dev",
-      "librrd-dev",
-      "libsqlite3-dev",
+      # Build Essentials
+      "gcc",
+      "make",
+      "automake",
 
       # For reports
       "rrdtool",
 
       "mysql-server",
-      "sqlite3",
+      "postgresql",
     ]:
       ensure => present,
   }
@@ -33,11 +48,16 @@ node default {
 
 class ruby {
 
-  package {
-    [ "ruby", "rubygems" ]:
-      ensure => present,
-  }
+   $ruby_packages = $operatingsystem ? {
+        Fedora =>           [ "ruby-devel" ],
+        /Ubuntu|Debian/  => [ "ruby-dev" ],
+   }
 
+  package {
+    $ruby_packages:
+      ensure => present,
+      before => Package["rake"]
+  }
 
 }
 
@@ -51,8 +71,6 @@ class rubygems {
       ensure   => "1.2.2",
       require  => [
         Package["rake"],
-        Package["rubygems"],
-        Package["ruby-dev"],
       ],
       options  => "--no-ri --no-rdoc",
   }
@@ -64,44 +82,42 @@ class rubygems {
       source   => "http://gems.github.com",
       require  => [
         Package["rake"],
-        Package["rubygems"],
-        Package["ruby-dev"],
       ],
       options  => "--no-ri --no-rdoc",
   }
 
   package {
-    "mysql":
-      provider => "gem",
-      require  => [
-        Package["libmysqlclient-dev"],
-        Package["rake"],
-        Package["rubygems"],
-        Package["ruby-dev"],
-      ],
-      options   => "--no-ri --no-rdoc",
+    "ruby_dev":
+      name => $operatingsystem ? {
+         Fedora =>           [ "postgresql-devel", "mysql-devel",        "sqlite",  "sqlite-devel",   "rrdtool-devel", "openldap-devel" ],
+         /Ubuntu|Debian/  => [ "libpq-dev",        "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap-dev" ],
+      },
+      ensure => present,
+#      require => Package["ruby_dev2"],
   }
 
-  package {
-    "postgres":
-      provider => "gem",
-      require  => [
-        Package["libpq-dev"],
-        Package["rake"],
-        Package["rubygems"],
-        Package["ruby-dev"],
-      ],
-      options   => "--no-ri --no-rdoc",
-  }
+#  package {
+#    "ruby_dev2":
+#      name => $operatingsystem ? {
+#         Fedora =>           [ "libpng-devel", "freetype-devel",   "libart_lgpl-devel" ],
+#         /Ubuntu|Debian/  => [ "libpng-dev",   "libfreetype6-dev", "libart-2.0-dev" ],
+#      },
+#      ensure => present,
+#  }
+
 
   package {
-    "sqlite3-ruby":
+    [
+      "mysql",
+      "postgres",
+      "sqlite3-ruby",
+      #"RubyRRDtool",
+      "ruby-ldap",
+    ]:
       provider => "gem",
       require  => [
-        Package["libsqlite3-dev"],
+        Package["ruby_dev"],
         Package["rake"],
-        Package["rubygems"],
-        Package["ruby-dev"],
       ],
       options   => "--no-ri --no-rdoc",
   }
@@ -118,8 +134,6 @@ class rubygems {
       "stomp",
       "mongrel",
       "daemons",
-      "ldap",
-      "rrd",
       "test-unit",
     ]:
       provider => "gem",
@@ -167,15 +181,21 @@ class users {
 
 class git {
 
+  $git_package = $operatingsystem ? {
+       Fedora =>           [ "git" ],
+       /Ubuntu|Debian/  => [ "git-core" ],
+  }
+
   package {
-    "git-core":
+    "git":
+      name   => $git_package,
       ensure => installed,
   }
 
   exec {
     "setup_git":
       command => "/usr/bin/git config --global user.email 'hudson@reductivelabs.com'; /usr/bin/git config --global user.name 'Hudson User'",
-      require => Package["git-core"],
+      require => Package["git"],
   }
 }
 

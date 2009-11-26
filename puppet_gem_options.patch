@@ -1,0 +1,43 @@
+diff -ur puppet-0.25.0/lib/puppet/provider/package/gem.rb puppet.net/lib/puppet/provider/package/gem.rb
+--- puppet-0.25.0/lib/puppet/provider/package/gem.rb    2009-09-04 22:54:19.000000000 +0000
++++ puppet.net/lib/puppet/provider/package/gem.rb   2009-11-24 12:52:44.000000000 +0000
+@@ -75,6 +75,10 @@
+         # Always include dependencies
+         command << "--include-dependencies"
+ 
++        if options = resource[:options]
++              command += options.split(/\s+/)
++        end
++
+         if source = resource[:source]
+             begin
+                 uri = URI.parse(source)
+@@ -99,6 +103,11 @@
+             command << resource[:name]
+         end
+ 
++        if build = resource[:build]
++           command << "--"
++              command += build.split(/\s+/)
++        end
++
+         output = execute(command)
+         # Apparently some stupid gem versions don't exit non-0 on failure
+         if output.include?("ERROR")
+diff -ur puppet-0.25.0/lib/puppet/type/package.rb puppet.net/lib/puppet/type/package.rb
+--- puppet-0.25.0/lib/puppet/type/package.rb    2009-09-04 22:54:19.000000000 +0000
++++ puppet.net/lib/puppet/type/package.rb   2009-11-24 12:56:53.000000000 +0000
+@@ -207,6 +207,12 @@
+             isnamevar
+         end
+ 
++        newparam(:options) do
++            desc "Options for the gem command"
++        end
++        newparam(:build) do
++            desc "Build options for the gem"
++        end
+         newparam(:source) do
+             desc "Where to find the actual package.  This must be a local file
+                 (or on a network file system) or a URL that your specific
+

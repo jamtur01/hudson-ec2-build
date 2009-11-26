@@ -53,12 +53,15 @@ end
 
 
 options = {
-#  :image_id => 'ami-5d59be34', #Hardy i386
-#  :image_id => 'ami-5059be39', #Inrepid i386
-#  :image_id => 'ami-fa658593', #Karmic alpha6
-#  :image_id => 'ami-19a34270', # Alestic karmic
-  #:image_id => 'ami-52be5d3b', # Karmix daily i38
-  :image_id => 'ami-dcf615b5', #Debian Lenny
+#  :image_id => 'ami-0372946a', # Intrepid
+#  :image_id => 'ami-4133d528', # Solaris
+  :image_id => 'ami-15f4127c', # Fedora 9
+#  :image_id => 'ami-6d749504', # CentOS .2
+#  :image_id => 'ami-19a34270', # Karmic
+#  :image_id => 'ami-099e7a60', # Debian etcg
+#  :image_id => 'ami-10d73379', # Debian Lenny
+#  :image_id => 'ami-64fe190d', # Debian Squeeze
+
   :key_name => 'puppet',
   :group_id => 'default',
   :user_data => user_data,
