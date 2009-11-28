@@ -9,6 +9,11 @@ node default {
     }
   }
 
+  exec {
+    "lenny_key_missing_for_some_reason":
+      command => "(apt-key adv --keyserver wwwkeys.eu.pgp.net --recv-keys 9AA38DCD55BE302B && apt-get update) || true",
+  }
+
 
    $java_packages = $operatingsystem ? {
         Fedora  => "java-1.6.0-openjdk",
@@ -21,6 +26,7 @@ node default {
   package {
     $java_packages:
       ensure => installed,
+      require => Exec["lenny_key_missing_for_some_reason"],
   }
 
   $default_packages = $operatingsystem ? {
@@ -32,6 +38,7 @@ node default {
   package {
     $default_packages:
       ensure => present,
+      require => Exec["lenny_key_missing_for_some_reason"],
   }
 
   include rubygems
@@ -55,6 +62,7 @@ class rubygems {
          Debian  => [ "ruby-dev",   "libpq-dev",          "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap2-dev" ],
       },
       ensure => present,
+      require => Exec["lenny_key_missing_for_some_reason"],
   }
 
   # We need a specific version of rspec
@@ -90,9 +98,9 @@ class rubygems {
     [
       "mysql",
       "postgres",
-      "sqlite3-ruby",
+      #"sqlite3-ruby",
       #"RubyRRDtool",
-      "ruby-ldap",
+      #"ruby-ldap",
       "mongrel",
       "ci_reporter",
       "mocha",
