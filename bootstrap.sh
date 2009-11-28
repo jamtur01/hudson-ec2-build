@@ -38,6 +38,7 @@ tar xf rubygems.tgz
 cd rubygems*
 ruby setup.rb
 ln -s /usr/bin/gem1.8 /usr/bin/gem || true
+cd
 
 # Patch Puppet
 cd puppet
