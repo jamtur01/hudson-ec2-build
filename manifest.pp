@@ -107,6 +107,7 @@ class rubygems {
       provider => "gem",
       ensure   => present,
       options   => "--no-ri --no-rdoc",
+      require  => Package["ruby_dev"],
   }
 }
 
