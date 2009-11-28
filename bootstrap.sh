@@ -49,7 +49,7 @@ patch -p1 < /mnt/hudson-ec2-build/puppet_gem_options.patch
 export PATH=/mnt/puppet/bin:/mnt/puppet/sbin:/mnt/facter/bin:$PATH
 export RUBYLIB=/mnt/facter/lib:/mnt/puppet/lib
 
-puppet /mnt/hudson-ec2-build/config/manifest.pp
+puppet /mnt/hudson-ec2-build/manifest.pp
 
 
 
