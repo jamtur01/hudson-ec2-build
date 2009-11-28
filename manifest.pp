@@ -10,30 +10,27 @@ node default {
   }
 
 
-   $default_packages = $operatingsystem ? {
-        Fedora => [ "java-1.6.0-openjdk" ],
-        Ubuntu => [ "openjdk-6-jre-headless" ],
-        Debian => [ "openjdk-6-jre-headless" ],
+   $java_packages = $operatingsystem ? {
+        Fedora  => "java-1.6.0-openjdk",
+        CentOS  => "java-1.6.0-openjdk",
+        Ubuntu  => "openjdk-6-jre-headless",
+        Debian  => "openjdk-6-jre-headless",
+        Solaris => "SUNWj6rt",
    }
 
   package {
-    $default_packages:
+    $java_packages:
       ensure => installed,
   }
 
+  $default_packages = $operatingsystem ? {
+    Solaris => [ "SUNWgcc", "SUNWgmake", "SUNWgnu-automake-110", "SUNWrrdtool", "SUNWmysql5",   "SUNWpostgr-83-server" ],
+    default => [ "gcc",     "make",      "automake",             "rrdtool",     "mysql-server", "postgresql" ],
+  }
+
+
   package {
-    [
-      # Build Essentials
-      "gcc",
-      "make",
-      "automake",
-
-      # For reports
-      "rrdtool",
-
-      "mysql-server",
-      "postgresql",
-    ]:
+    $default_packages:
       ensure => present,
   }
 
@@ -48,6 +45,17 @@ node default {
 
 
 class rubygems {
+
+  package {
+    "ruby_dev":
+      name => $operatingsystem ? {
+         Fedora  => [ "ruby-devel", "postgresql-devel",   "mysql-devel",        "sqlite",  "sqlite-devel",   "rrdtool-devel", "openldap-devel" ],
+         CentOS  => [ "ruby-devel", "postgresql-devel",   "mysql-devel",        "sqlite",  "sqlite-devel",   "rrdtool-devel", "openldap-devel" ],
+         Ubuntu  => [ "ruby-dev",   "libpq-dev",          "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap2-dev" ],
+         Debian  => [ "ruby-dev",   "libpq-dev",          "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap2-dev" ],
+      },
+      ensure => present,
+  }
 
   # We need a specific version of rspec
   package {
@@ -72,16 +80,11 @@ class rubygems {
   }
 
   package {
-    "ruby_dev":
-      name => $operatingsystem ? {
-         Fedora => [ "ruby-devel", "postgresql-devel", "mysql-devel",        "sqlite",  "sqlite-devel",   "rrdtool-devel", "openldap-devel" ],
-         Ubuntu => [ "ruby-dev",   "libpq-dev",        "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap-dev" ],
-         Debian => [ "ruby-dev",   "libpq-dev",        "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap-dev" ],
-      },
-      ensure => present,
-      require => Package["rake"],
+    "rake":
+      provider => "gem",
+      options  => "--no-ri --no-rdoc",
+      require  => Package["ruby_dev"],
   }
-
 
   package {
     [
@@ -90,15 +93,7 @@ class rubygems {
       "sqlite3-ruby",
       #"RubyRRDtool",
       "ruby-ldap",
-    ]:
-      provider => "gem",
-      require  => Package["ruby_dev"],
-      options   => "--no-ri --no-rdoc",
-  }
-
-  package {
-    [
-      "rake",
+      "mongrel",
       "ci_reporter",
       "mocha",
       "hoe",
@@ -106,7 +101,6 @@ class rubygems {
       "cucumber",
       "json",
       "stomp",
-      "mongrel",
       "daemons",
       "test-unit",
     ]:
@@ -156,9 +150,11 @@ class users {
 class git {
 
   $git_package = $operatingsystem ? {
-       Fedora => [ "git" ],
-       Ubuntu => [ "git-core" ],
-       Debian => [ "git-core" ],
+       Fedora  => [ "git" ],
+       CentOS  => [ "git" ],
+       Ubuntu  => [ "git-core" ],
+       Debian  => [ "git-core" ],
+       Solaris => [ "SUNWgit" ],
   }
 
   package {
