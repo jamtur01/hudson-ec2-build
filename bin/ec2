@@ -54,13 +54,13 @@ ec2 = AWS::EC2::Base.new options
 
 options = {
 #  :image_id => 'ami-0372946a', # Intrepid
-  :image_id => 'ami-4133d528', # Solaris
+#  :image_id => 'ami-4133d528', # Solaris
 #  :image_id => 'ami-15f4127c', # Fedora 9
 #  :image_id => 'ami-6d749504', # CentOS 5.2
 #  :image_id => 'ami-19a34270', # Karmic
 #  :image_id => 'ami-099e7a60', # Debian etch
 #  :image_id => 'ami-10d73379', # Debian Lenny
-#  :image_id => 'ami-64fe190d', # Debian Squeeze
+  :image_id => 'ami-64fe190d', # Debian Squeeze
 
   :key_name => 'puppet',
   :group_id => 'default',

@@ -21,12 +21,14 @@ then
 fi
 
 # Download the latest stable puppet
+rm -rf puppet*
 wget http://reductivelabs.com/downloads/puppet/puppet-latest.tgz
 tar xf puppet-latest.tgz
 rm puppet-latest.tgz
 mv puppet* puppet
 
 # Download the latest stable facter
+rm -rf facter*
 wget http://reductivelabs.com/downloads/facter/facter-latest.tgz
 tar xf facter-latest.tgz
 rm facter-latest.tgz
@@ -34,6 +36,7 @@ mv facter* facter
 
 
 # Download the latest rubygems
+rm -rf rubygems*
 wget http://rubyforge.org/frs/download.php/60718/rubygems-1.3.5.tgz
 tar xf rubygems-1.3.5.tgz
 cd rubygems-1.3.5
