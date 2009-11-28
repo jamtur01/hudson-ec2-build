@@ -1,4 +1,5 @@
-wget -O /mnt/hudson.tar.gz http://github.com/johnf/hudson-ec2-build/tarball/master
-tar xf /mnt/hudson.tar.gz -C /mnt
-mv /mnt/*hudson-ec2-build* /mnt/hudson-ec2-build
-/mnt/hudson-ec2-build/bootstrap.sh
+rm -rf hudson-ec2-build
+wget -O hudson.tar.gz http://github.com/johnf/hudson-ec2-build/tarball/master
+tar xf hudson.tar.gz
+mv *hudson-ec2-build* hudson-ec2-build
+hudson-ec2-build/bootstrap.sh
