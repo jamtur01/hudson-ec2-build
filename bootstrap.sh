@@ -51,7 +51,7 @@ patch -p1 < $HOME/hudson-ec2-build/puppet_gem_options.patch
 export PATH=$HOME/puppet/bin:$HOME/puppet/sbin:$HOME/facter/bin:$PATH
 export RUBYLIB=$HOME/facter/lib:$HOME/puppet/lib
 
-puppet $HOME/hudson-ec2-build/manifest.pp
+puppet --color false $HOME/hudson-ec2-build/manifest.pp
 
 
 
