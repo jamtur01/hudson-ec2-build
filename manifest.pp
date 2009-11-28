@@ -1,7 +1,7 @@
 node default {
 
   # java apps (sun SDK)
-  if ($operatingsystem == "Fedora") {
+  if ($operatingsystem == "Fedora" or $operatingsystem == "CentOS" ) {
     exec {
       "epel":
         command => "/bin/rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm",
