@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Fix path for solaris
+export PATH=/usr/gnu/bin/:$PATH
+
 # Install Ruby
 if [ -f /usr/bin/yum ]
 then
