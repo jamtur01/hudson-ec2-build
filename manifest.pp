@@ -46,9 +46,6 @@ node default {
   include git
   include users
 
-  include hudson
-
-
 }
 
 
@@ -165,14 +162,3 @@ class git {
   }
 }
 
-
-class hudson {
-
-    exec {
-      "get_hudson":
-        command => "/usr/bin/wget -O /home/hudson/slave.jar http://beaker.inodes.org:8080/jnlpJars/slave.jar",
-        require => File["/home/hudson"],
-    }
-
-
-}
