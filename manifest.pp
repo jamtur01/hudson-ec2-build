@@ -66,17 +66,6 @@ class rubygems {
       require => Exec["lenny_key_missing_for_some_reason"],
   }
 
-  # We need a specific version of rspec
-  package {
-    "rspec":
-      provider => "gem",
-      ensure   => "1.2.2",
-      require  => [
-        Package["rake"],
-      ],
-      options  => "--no-ri --no-rdoc",
-  }
-
   # Github gems TODO use gemcutter
   package {
     "relevance-rcov":
@@ -86,13 +75,6 @@ class rubygems {
         Package["rake"],
       ],
       options  => "--no-ri --no-rdoc",
-  }
-
-  package {
-    "rake":
-      provider => "gem",
-      options  => "--no-ri --no-rdoc",
-      require  => Package["ruby_dev"],
   }
 
   package {
@@ -112,6 +94,9 @@ class rubygems {
       "stomp",
       "daemons",
       "test-unit",
+      "rspec", 
+      "rake",
+      "facter", 
     ]:
       provider => "gem",
       ensure   => present,
