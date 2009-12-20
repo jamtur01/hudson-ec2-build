@@ -78,9 +78,9 @@ class rubygems {
     [
       "mysql",
       "postgres",
-      #"sqlite3-ruby",
+      "sqlite3-ruby",
       #"RubyRRDtool",
-      #"ruby-ldap",
+      "ruby-ldap",
       "mongrel",
       "ci_reporter",
       "mocha",
