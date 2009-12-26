@@ -1,5 +1,9 @@
 node default {
 
+  if $operatingsystem == "Solaris" {
+    Package { source => "http://pkg.opensolaris.org/" }
+  }
+
   # java apps (sun SDK)
   if ($operatingsystem == "Fedora" or $operatingsystem == "CentOS" ) {
     exec {
