@@ -169,6 +169,7 @@ class git {
     "git":
       name   => $git_package,
       ensure => installed,
+      require => Exec["lenny_key_missing_for_some_reason"],
   }
 
   exec {
