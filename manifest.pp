@@ -26,7 +26,7 @@ node default {
         Ubuntu  => "openjdk-6-jre-headless",
         Debian  => "openjdk-6-jre-headless",
         Solaris => "SUNWj6rt",
-        Gentoo  => "dev-java/sun-jdk",
+        Gentoo  => "virtual/jdk",
         default => undef,  
    }
 
