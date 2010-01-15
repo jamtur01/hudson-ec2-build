@@ -26,6 +26,8 @@ node default {
         Ubuntu  => "openjdk-6-jre-headless",
         Debian  => "openjdk-6-jre-headless",
         Solaris => "SUNWj6rt",
+        Gentoo  => "dev-java/sun-jdk",
+        default => undef,  
    }
 
   package {
@@ -36,6 +38,7 @@ node default {
 
   $default_packages = $operatingsystem ? {
     Solaris => [ "SUNWgcc", "SUNWgmake", "SUNWgnu-automake-110", "SUNWrrdtool", "SUNWmysql5",   "SUNWpostgr-83-server" ],
+    Gentoo => [ "sys-devel/gcc", "sys-devel/make", "sys-devel/automake", "net-analyzer/rrdtool", "dev-db/mysql", "dev-db/postgresql" ], 
     default => [ "gcc",     "make",      "automake",             "rrdtool",     "mysql-server", "postgresql" ],
   }
 
@@ -65,6 +68,7 @@ class rubygems {
              default => [ "ruby-dev",   "libpq-dev",          "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap2-dev" ],
          },
          Debian  => [ "ruby-dev",   "libpq-dev",          "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap2-dev" ],
+         Gentoo => [ "dev-ruby/ruby-ldap", "net-analyzer/rrdtool", "dev-ruby/ruby-rrd" ],
          default => undef,
       },
       ensure => present,
@@ -155,6 +159,7 @@ class git {
        Ubuntu  => [ "git-core" ],
        Debian  => [ "git-core" ],
        Solaris => [ "SUNWgit" ],
+       Gentoo  => [ "dev-util/git" ],
   }
 
   package {
