@@ -72,7 +72,7 @@ class rubygems {
          default => undef,
       },
       ensure => present,
-      require => Exec["lenny_key_missing_for_some_reason"],
+      require => Package[$default_packages],
   }
 
   # Github gems TODO use gemcutter
