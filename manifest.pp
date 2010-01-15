@@ -36,9 +36,18 @@ node default {
       require => Exec["lenny_key_missing_for_some_reason"],
   }
 
-  $default_packages = $operatingsystem ? {
+  include default_packages
+  include rubygems
+  include git
+  include users
+
+}
+
+class default_packages {
+
+ $default_packages = $operatingsystem ? { 
     Solaris => [ "SUNWgcc", "SUNWgmake", "SUNWgnu-automake-110", "SUNWrrdtool", "SUNWmysql5",   "SUNWpostgr-83-server" ],
-    Gentoo => [ "sys-devel/gcc", "sys-devel/make", "sys-devel/automake", "net-analyzer/rrdtool", "dev-db/mysql", "dev-db/postgresql" ], 
+    Gentoo  => [ "sys-devel/gcc", "sys-devel/make", "sys-devel/automake", "net-analyzer/rrdtool", "dev-db/mysql", "dev-db/postgresql" ],  
     default => [ "gcc",     "make",      "automake",             "rrdtool",     "mysql-server", "postgresql" ],
   }
 
@@ -48,13 +57,7 @@ node default {
       ensure => present,
       require => Exec["lenny_key_missing_for_some_reason"],
   }
-
-  include rubygems
-  include git
-  include users
-
 }
-
 
 class rubygems {
 
@@ -72,7 +75,7 @@ class rubygems {
          default => undef,
       },
       ensure => present,
-      require => Package[$default_packages],
+      require => Class["default_packages"],
   }
 
   # Github gems TODO use gemcutter
