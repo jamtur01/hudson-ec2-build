@@ -157,7 +157,7 @@ class users {
       owner   => "hudson",
       group   => "hudson",
       ensure  => directory,
-      require => User["hudson"],
+      require => [ User["hudson"], Group["hudson"] ],
   }
 
   file {
