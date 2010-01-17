@@ -122,7 +122,7 @@ class users {
   if $operatingsystem == "Solaris" {
       $hudsonhome = "/hudson"
       $puppethome = "/puppet"
-  else
+  } else {
       $hudsonhome = "/home/hudson"
       $puppethome = "/home/puppet"
   }
@@ -158,7 +158,6 @@ class users {
       ensure  => directory,
       require => User["puppet"],
   }
-
 
 }
 
