@@ -119,6 +119,14 @@ class rubygems {
 
 class users {
 
+  if $operatingsystem == "Solaris" {
+      $hudsonhome = "/hudson"
+      $puppethome = "/puppet"
+  else
+      $hudsonhome = "/home/hudson"
+      $puppethome = "/home/puppet"
+  }
+
   user {
     [
       "hudson",
@@ -128,15 +136,15 @@ class users {
   }
 
   file {
-    "/home/hudson/.puppet":
+    "$hudsonhome/.puppet":
       owner   => "hudson",
       group   => "hudson",
       ensure  => directory,
-      require => File["/home/hudson"],
+      require => File["$hudsonhome"],
   }
 
   file {
-    "/home/hudson":
+    "$hudsonhome":
       owner   => "hudson",
       group   => "hudson",
       ensure  => directory,
@@ -144,7 +152,7 @@ class users {
   }
 
   file {
-    "/home/puppet":
+    "$puppethome":
       owner   => "hudson",
       group   => "puppet",
       ensure  => directory,
