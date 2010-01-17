@@ -136,10 +136,18 @@ class users {
       groups => "mail",
   }
 
+  group { 
+    [
+      "hudson",
+      "puppet",
+    ]:
+      require => User["hudson", "puppet"],
+  }
+
   file {
     "$hudsonhome/.puppet":
       owner   => "hudson",
-      group   => "hudson",
+      group   => "puppet",
       ensure  => directory,
       require => File["$hudsonhome"],
   }
