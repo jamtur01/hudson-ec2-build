@@ -165,7 +165,7 @@ class users {
       owner   => "hudson",
       group   => "puppet",
       ensure  => directory,
-      require => User["puppet"],
+      require => [ User["puppet"], Group["puppet"] ],
   }
 
 }
