@@ -46,6 +46,7 @@ cd
 # Patch Puppet
 cd puppet
 patch -p1 < $HOME/hudson-ec2-build/puppet_gem_options.patch
+mv $HOME/hudson-ec2-build/pkg.rb lib/puppet/provider/package
 
 # Get ready to run puppet
 export PATH=$HOME/puppet/bin:$HOME/puppet/sbin:$HOME/facter/bin:$PATH

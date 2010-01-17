@@ -1,7 +1,7 @@
 node default {
 
   if $operatingsystem == "Solaris" {
-    Package { source => "http://pkg.opensolaris.org/" }
+    Package { provider => pkg, } 
   }
 
   # java apps (sun SDK)
