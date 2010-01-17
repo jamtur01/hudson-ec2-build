@@ -72,6 +72,7 @@ class rubygems {
          },
          Debian  => [ "ruby-dev",   "libpq-dev",          "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap2-dev" ],
          Gentoo => [ "dev-ruby/ruby-ldap", "net-analyzer/rrdtool", "dev-ruby/ruby-rrd" ],
+         Solaris => [ "ruby-dev", "SUNWlldap", ],
          default => undef,
       },
       ensure => present,
