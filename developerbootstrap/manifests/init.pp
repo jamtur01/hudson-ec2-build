@@ -34,6 +34,7 @@ class developerbootstrap {
   package {
     "relevance-rcov":
       provider => "gem",
+      source   => "http://gems.github.com",
       require  => Package["rake"],
   }
 
