@@ -54,15 +54,14 @@ class developerbootstrap {
       "stomp",
       "daemons",
       "test-unit",
-      "rspec", 
+      "rspec",
       "rake",
-      "facter", 
     ]:
       provider => "gem",
       ensure   => present,
       require  => Package[$developerbootstrap::params::rubydev_packages],
   }
-  
+
   package {
     $developerbootstrap::params::git_package:
       ensure => installed,
