@@ -32,11 +32,9 @@ class developerbootstrap::params {
          default => undef,
   }
 
-  $git_package = $operatingsystem ? { 
-       Fedora  => [ "git" ],
-       CentOS  => [ "git" ],
-       Ubuntu  => [ "git-core" ],
-       Debian  => [ "git-core" ],
+  $git_package = $operatingsystem ? {
+       /CentOS|Fedora|RedHat/ => [ "git" ],
+       /Debian|Ubuntu/  => [ "git-core" ],
        Solaris => [ "SUNWgit" ],
        Gentoo  => [ "dev-util/git" ],
   }

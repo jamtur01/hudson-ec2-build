@@ -1,6 +1,6 @@
 # Class: developerbootstrap::redhat
 #
-# This class installs and configures Red Hat, Fedora and CentOS hosts to develop and test Puppet 
+# This class installs and configures Red Hat and CentOS hosts to develop and test Puppet
 #
 # Parameters:
 #
@@ -17,7 +17,7 @@ class developerbootstrap::redhat {
   exec {
     "epel":
       command => "/bin/rpm -Uvh http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-3.noarch.rpm",
-      unless  => "/bin/rpm -qa | /bin/grep epel-release-5-3",
-  }   
+      unless  => "/bin/rpm -q --quiet epel-release",
+  }
 
 }
