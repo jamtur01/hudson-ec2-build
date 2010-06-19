@@ -15,7 +15,7 @@ class developerbootstrap {
   include developerbootstrap::params
 
   case $operatingsystem {
-    'redhat','centos': { require developerbootstrap::redhat }
+    'redhat','centos','OEL': { require developerbootstrap::redhat }
     'ubuntu','debian': { require developerbootstrap::ubuntu }
     'solaris': { require developerbootstrap::solaris }
   }
