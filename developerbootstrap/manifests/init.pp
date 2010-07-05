@@ -50,6 +50,7 @@ class developerbootstrap {
       "mocha",
       "hoe",
       "rails",
+      "gherkin",
       "cucumber",
       "json",
       "stomp",

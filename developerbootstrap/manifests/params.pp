@@ -32,8 +32,8 @@ class developerbootstrap::params {
   }
 
   $git_package = $operatingsystem ? {
-       /CentOS|Fedora|RedHat|OEL/ => [ "git" ],
-       /Debian|Ubuntu/  => [ "git-core" ],
+       /CentOS|Fedora|RedHat|OEL/ => [ "git", "git-email" ],
+       /Debian|Ubuntu/  => [ "git-core", "git-email" ],
        Solaris => [ "SUNWgit" ],
        Gentoo  => [ "dev-util/git" ],
   }
@@ -43,7 +43,7 @@ class developerbootstrap::params {
        default => '/home/hudson',
   }
 
-   $puppethome = $operatingsystem ? { 
+   $puppethome = $operatingsystem ? {
        Solaris => '/puppet',
        default => '/home/puppet',
   }
