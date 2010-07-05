@@ -57,7 +57,7 @@ class developerbootstrap::hudson {
   exec {
     "setup_git":
       command => "/usr/bin/git config --global user.email 'hudson@reductivelabs.com'; /usr/bin/git config --global user.name 'Hudson User'",
-      require => Package["git"],
+      require => Package[$developerbootstrap::params::git_package],
   }
 
 }
