@@ -20,4 +20,10 @@ class developerbootstrap::redhat {
       unless  => "/bin/rpm -q --quiet epel-release",
   }
 
+  exec {
+    "elff":
+      command => "/bin/rpm -Uvh http://download.elff.bravenet.com/5/i386/elff-release-5-3.noarch.rpm"
+    unless  => "/bin/rpm -q --quiet elff-release",
+  }
+
 }
