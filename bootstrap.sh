@@ -22,14 +22,14 @@ fi
 
 # Download the latest stable puppet
 rm -rf puppet*
-wget -O puppet.tgz http://reductivelabs.com/downloads/puppet/puppet-latest.tgz
+wget -O puppet.tgz http://puppetlabs.com/downloads/puppet/puppet-latest.tgz
 tar zxf puppet.tgz
 rm puppet.tgz
 mv puppet* puppet
 
 # Download the latest stable facter
 rm -rf facter*
-wget -O facter.tgz http://reductivelabs.com/downloads/facter/facter-latest.tgz
+wget -O facter.tgz http://puppetlabs.com/downloads/facter/facter-latest.tgz
 tar zxf facter.tgz
 rm facter.tgz
 mv facter* facter
@@ -45,15 +45,13 @@ cd
 
 # Patch Puppet
 cd puppet
-patch -p1 < $HOME/hudson-ec2-build/puppet_gem_options.patch
+patch -p1 < $HOME/hudson-ec2-build/patches/puppet_gem_options.patch
+patch -p1 < $HOME/hudson-ec2-build/patches/puppet_pkg.patch
 mv $HOME/hudson-ec2-build/pkg.rb lib/puppet/provider/package
 
 # Get ready to run puppet
 export PATH=$HOME/puppet/bin:$HOME/puppet/sbin:$HOME/facter/bin:$PATH
 export RUBYLIB=$HOME/facter/lib:$HOME/puppet/lib
 
-puppet --color false $HOME/hudson-ec2-build/manifest.pp
-
-
-
+puppet --color false --modulepath=$HOME/hudson-ec2-build manifest.pp
 

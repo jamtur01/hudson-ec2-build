@@ -7,7 +7,7 @@ Puppet::Type.type(:package).provide :pkg, :parent => Puppet::Provider::Package d
 
   confine :operatingsystem => :solaris
 
-  #defaultfor [:operatingsystem => :solaris, :kernelrelease => "5.11"]
+  defaultfor [:operatingsystem => :solaris, :kernelrelease => "5.11"]
 
   def self.instances
     packages = []
@@ -97,7 +97,7 @@ Puppet::Type.type(:package).provide :pkg, :parent => Puppet::Provider::Package d
         :name => @resource[:name], :error => 'ok'}
     end
 
-    hash = self.class.parse_line(output) || 
+    hash = self.class.parse_line(output) ||
       {:ensure => :absent, :status => 'missing',
        :name => @resource[:name], :error => 'ok'}
 

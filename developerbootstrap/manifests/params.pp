@@ -38,4 +38,14 @@ class developerbootstrap::params {
        Gentoo  => [ "dev-util/git" ],
   }
 
+  $hudsonhome = $operatingsystem ? {
+       Solaris => '/hudson',
+       default => '/home/hudson',
+  }
+
+   $puppethome = $operatingsystem ? { 
+       Solaris => '/puppet',
+       default => '/home/puppet',
+  }
+
 }

@@ -1,0 +1,13 @@
+diff --git a/lib/puppet/provider/package/sun.rb b/lib/puppet/provider/package/sun.rb
+index 4f8b311..644d325 100755
+--- a/lib/puppet/provider/package/sun.rb
++++ b/lib/puppet/provider/package/sun.rb
+@@ -11,7 +11,7 @@ Puppet::Type.type(:package).provide :sun, :parent => Puppet::Provider::Package d
+ 
+     confine :operatingsystem => :solaris
+ 
+-    defaultfor :operatingsystem => :solaris
++    #defaultfor :operatingsystem => :solaris
+ 
+     def self.instances
+         packages = []

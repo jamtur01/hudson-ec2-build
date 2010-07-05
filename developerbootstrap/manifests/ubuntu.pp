@@ -1,6 +1,6 @@
 # Class: developerbootstrap::ubuntu
 #
-# This class installs and configures Debian and Ubuntu hosts to develop and test Puppet 
+# This class installs and configures Debian and Ubuntu hosts to develop and test Puppet
 #
 # Parameters:
 #
