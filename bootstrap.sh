@@ -53,5 +53,5 @@ mv $HOME/hudson-ec2-build/pkg.rb lib/puppet/provider/package
 export PATH=$HOME/puppet/bin:$HOME/puppet/sbin:$HOME/facter/bin:$PATH
 export RUBYLIB=$HOME/facter/lib:$HOME/puppet/lib
 
-puppet --color false --modulepath=$HOME/hudson-ec2-build manifest.pp
+puppet --color false --modulepath=$HOME/hudson-ec2-build $HOME/hudson-ec2-build/manifest.pp
 
