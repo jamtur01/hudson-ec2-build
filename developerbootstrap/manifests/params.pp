@@ -22,7 +22,7 @@ class developerbootstrap::params {
   $rubydev_packages = $operatingsystem ? {
          /CentOS|Fedora|RedHat|OEL/  => [ "ruby-devel", "postgresql-devel", "mysql-devel", "sqlite", "sqlite-devel", "rrdtool-devel", "openldap-devel" ],
          Ubuntu  => $operatingsystemrelease ? {
-             "8.04" => [ "ruby1.8-dev",   "libpq-dev",          "libmysqlclient15-dev", "sqlite3", "libsqlite3-dev",    "libldap2-dev" ],
+             "8.04", "9.04" => [ "ruby1.8-dev",   "libpq-dev",          "libmysqlclient15-dev", "sqlite3", "libsqlite3-dev",    "libldap2-dev" ],
              default => [ "ruby-dev",   "libpq-dev",          "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap2-dev" ],
          },
          Debian  => [ "ruby-dev",   "libpq-dev",          "libmysqlclient-dev", "sqlite3", "libsqlite3-dev", "librrd-dev",    "libldap2-dev" ],
