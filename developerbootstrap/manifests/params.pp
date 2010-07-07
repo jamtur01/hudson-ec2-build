@@ -48,4 +48,12 @@ class developerbootstrap::params {
        default => '/home/puppet',
   }
 
+  $java_packages = $operatingsystem ? {
+        /Fedora|Centos|RedHat|OEL/ => "java-1.6.0-openjdk",
+        /Ubuntu|Debian/ => "openjdk-6-jre-headless",
+        Solaris => "SUNWj6rt",
+        Gentoo  => "virtual/jdk",
+        default => undef,
+   }
+
 }

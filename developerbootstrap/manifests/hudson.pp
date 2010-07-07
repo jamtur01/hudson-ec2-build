@@ -60,4 +60,9 @@ class developerbootstrap::hudson {
       require => Package[$developerbootstrap::params::git_package],
   }
 
+  package {
+    $developerbootstrap::params::java_packages:
+      ensure => installed,
+  }
+
 }
