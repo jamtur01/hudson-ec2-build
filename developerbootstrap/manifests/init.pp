@@ -39,6 +39,12 @@ class developerbootstrap {
   }
 
   package {
+    "cucumber":
+      provider => "gem",
+      require  => Package["gherkin"],
+  }
+
+  package {
     [
       "mysql",
       "postgres",
@@ -51,7 +57,6 @@ class developerbootstrap {
       "hoe",
       "rails",
       "gherkin",
-      "cucumber",
       "json",
       "stomp",
       "daemons",
