@@ -14,8 +14,6 @@ class developerbootstrap::hudson {
 
   include developerbootstrap::params
 
-  Package { provider => gem, options  => "--no-ri --no-rdoc", }
-
   user {
     [
       "hudson",
